@@ -71,9 +71,9 @@ public class Network {
      * or if the "follows" addition failed for some reason, returns false.
      */
     public boolean addFollowee(String name1, String name2) {
-        if (this.getUser(name1) == null || this.getUser(name2) == null){
+        if (this.getUser(name1) == null || this.getUser(name2) == null) {
             return false;
-        }else{
+        } else {
             this.getUser(name1).addFollowee(name2);
             return true;
         }
@@ -87,8 +87,22 @@ public class Network {
      * given name.
      */
     public String recommendWhoToFollow(String name) {
+        int max = 0;
+        String reName = "";
+        for (int i = 0; i < this.userCount; i++) {
+            if (this.users[i] == getUser(name) || getUser(name).follows(name)) {
+                continue;
+            } else {
+                if (max < getUser(name).countMutual(this.users[i])) {
+                    max = getUser(name).countMutual(this.users[i]);
+                    reName = this.users[i].getName();
+                }
+            }
+        }
+
         //// Replace the following statement with your code
-        return null;
+        return reName;
+
     }
 
     /**
@@ -96,8 +110,16 @@ public class Network {
      * The user who appears the most in the follow lists of all the users.
      */
     public String mostPopularUser() {
+        String mostPopular = "";
+        int maxApp = 0;
+        for (int i = 0; i < this.userCount; i++) {
+            if(maxApp < this.followeeCount(this.users[i].getName())){
+                maxApp = this.followeeCount(this.users[i].getName());
+                mostPopular = this.users[i].getName();
+            }
+        }
         //// Replace the following statement with your code
-        return null;
+        return mostPopular;
     }
 
     /**
@@ -106,8 +128,11 @@ public class Network {
      * the users in this network. Note: A name can appear 0 or 1 times in each list.
      */
     private int followeeCount(String name) {
-        //// Replace the following statement with your code
-        return 0;
+        int numberOfTimes = 0;
+        for (int i = 0; i < this.userCount; i++) {
+            numberOfTimes = (this.users[i].follows(name)) ? numberOfTimes + 1 : numberOfTimes;
+        }
+        return numberOfTimes;
     }
 
     // Returns a textual description of all the users in this network, and who they

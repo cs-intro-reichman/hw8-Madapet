@@ -77,7 +77,7 @@ public class Network {
      */
     public boolean addFollowee(String name1, String name2) {
         if (this.getUser(name1) == null || this.getUser(name2) == null ||
-                name1 != name2 || name1 != null || name2 != null || this.getUser(name1).follows(name2)) {
+                name1 == name2 || name1 == null || name2 == null || this.getUser(name1).follows(name2)) {
             return false;
         } else {
             this.getUser(name1).addFollowee(name2);

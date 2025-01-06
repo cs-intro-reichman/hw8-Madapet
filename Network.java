@@ -33,7 +33,7 @@ public class Network {
      * Notice that the method receives a String, and returns a User object.
      */
     public User getUser(String name) {
-        name = name.toUpperCase().substring(0,1) + name.substring(1, name.length());
+        name = name.toUpperCase().substring(0, 1) + name.substring(1, name.length());
         if (this.userCount != 0) {
             for (int i = 0; i < this.userCount; i++) {
                 if (this.users[i].getName().equals(name)) {
@@ -44,7 +44,7 @@ public class Network {
         return null;
     }
 
-    public int getUserCount(){
+    public int getUserCount() {
         return this.userCount;
     }
 
@@ -76,7 +76,8 @@ public class Network {
      * or if the "follows" addition failed for some reason, returns false.
      */
     public boolean addFollowee(String name1, String name2) {
-        if (this.getUser(name1) == null || this.getUser(name2) == null) {
+        if (this.getUser(name1) == null || this.getUser(name2) == null ||
+                name1 != name2 || name1 != null || name2 != null || this.getUser(name1).follows(name2)) {
             return false;
         } else {
             this.getUser(name1).addFollowee(name2);
@@ -118,7 +119,7 @@ public class Network {
         String mostPopular = null;
         int maxApp = 0;
         for (int i = 0; i < this.userCount; i++) {
-            if(maxApp < this.followeeCount(this.users[i].getName())){
+            if (maxApp < this.followeeCount(this.users[i].getName())) {
                 maxApp = this.followeeCount(this.users[i].getName());
                 mostPopular = this.users[i].getName();
             }

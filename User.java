@@ -50,6 +50,9 @@ public class User {
      * If this user follows the given name, returns true; otherwise returns false.
      */
     public boolean follows(String name) {
+        //System.out.println(name);
+        name = name.toUpperCase().substring(0,1) + name.substring(1, name.length());
+        //System.out.println(name);
         if (this.fCount != 0) {
             for (int i = 0; i < this.fCount; i++) {
                 if (this.follows[i].equals(name)) {

@@ -57,16 +57,17 @@ public class Network {
      * network, and returns true.
      */
     public boolean addUser(String name) {
-        if (this.getUser(name) != null){return false;}
-        if (this.userCount == this.users.length || name == null) {
+        if (name == null) {
             return false;
-        } else {
-            User new_user = new User(name);
-            this.users[this.userCount] = new_user;
-            this.userCount++;
-
-            return true;
         }
+        if (this.getUser(name) != null || this.userCount == this.users.length) {
+            return false;
+        }
+        User new_user = new User(name);
+        this.users[this.userCount] = new_user;
+        this.userCount++;
+
+        return true;
 
     }
 
@@ -82,12 +83,12 @@ public class Network {
         }
         if (this.getUser(name1) == null || this.getUser(name2) == null ||
                 name1 == name2) {
-            return false;}
-            if (this.getUser(name1).follows(name2)) {
-                return false;
+            return false;
+        }
+        if (this.getUser(name1).follows(name2)) {
+            return false;
 
-            }
-        else {
+        } else {
             this.getUser(name1).addFollowee(name2);
             return true;
         }

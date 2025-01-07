@@ -57,7 +57,8 @@ public class Network {
      * network, and returns true.
      */
     public boolean addUser(String name) {
-        if (this.getUser(name) != null || this.userCount == this.users.length || name == null) {
+        if (this.getUser(name) != null){return false;}
+        if (this.userCount == this.users.length || name == null) {
             return false;
         } else {
             User new_user = new User(name);
